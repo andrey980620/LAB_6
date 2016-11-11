@@ -1,0 +1,3 @@
+F:\Projects\JAVA\LAB_6\src\Root_dir\layer\filecsv.txt
+2
+В голове моей опилки, 

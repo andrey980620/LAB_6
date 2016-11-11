@@ -1,0 +1,3 @@
+F:\Projects\JAVA\LAB_6\src\Root_dir\layer\temp.txt\test_file.txt
+3
+Да-да-да. 
