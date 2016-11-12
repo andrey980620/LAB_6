@@ -23,7 +23,7 @@ public class IO {
                 verses.add(tmp);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("\n!!!Error while reading\n");
         }
 
     }
@@ -37,14 +37,13 @@ public class IO {
             out.write(content);
             out.close();
         } catch (IOException e) {
-            System.out.println("\n!!! Unable to  create a file with path:  " + path);
+            System.out.printf("\n!!! Unable to  create a file with path:  %s%n\n", path);
         }
     }
 
     public static void createDir(String path) throws IOException {
         File newDir = new File(path);
         newDir.mkdirs();
-        //newDir.mkdir();
     }
 
 
@@ -65,12 +64,11 @@ public class IO {
             TreeMap<String, String> result = new TreeMap<>((o1, o2) -> o2.toString().compareTo(o1.toString()));
             File root = new File(rootDir);
             int rootRank = getRank(root.getAbsolutePath());
-            //System.out.println(rootRank);
             String tmp;
 
             while ((tmp = files.readLine()) != null) {
                 int isFile;
-                if (tmp.endsWith("\\") || tmp.endsWith("/") || isDir(tmp))
+                if (isDir(tmp))
                     isFile = 0;
                 else
                     isFile = 1;
@@ -89,13 +87,13 @@ public class IO {
             }
             return result;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("\n!!!Error while reading\n");
         }
         return null;
     }
 
     public static boolean isDir(String path) {
-        Pattern dir = Pattern.compile(".*[\\\\/]([^.])+");
+        Pattern dir = Pattern.compile("(.*[\\\\/]([^.])+)|(.*[\\\\/])");
         return path.matches(dir.pattern());
     }
 //    public static boolean isCorrectPath(String path) {

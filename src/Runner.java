@@ -10,11 +10,11 @@ public class Runner {
     public static void main(String[] args) throws IOException {
         IO files = new IO("src" + IO.sep + "root.txt", "src" + IO.sep + "poem.txt");
         TreeMap<String, String> map = files.buildMap("src" + IO.sep + "files.txt");
-        System.out.println(map);
 
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
+            System.out.println(key + " -> " + value + "\n");
             if (Objects.equals(value, "directory"))
                 IO.createDir(key);
             else
