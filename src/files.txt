@@ -1,7 +1,9 @@
+/temp.txt/smthing.txt
 /temp.txt
 /layer/temp_1.txt
 /layer_0
 /temp-dir/test/file.txt
 /layer/filecsv.txt
 /layer/temp.txt/test_file.txt
-/kek/kek/kek/
+/kek/kek/kek//
+/txt.txt

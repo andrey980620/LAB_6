@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * Гончаревич Андрей 8 группа
@@ -16,12 +17,11 @@ public class IO {
             BufferedReader poem = new BufferedReader(new FileReader((poemFile)));
 
             rootDir = root.readLine() + sep + root.readLine();
-            //System.out.println(rootDir);
 
             String tmp;
             while ((tmp = poem.readLine()) != null)
                 verses.add(tmp);
-            //System.out.println(verses);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,17 +29,21 @@ public class IO {
     }
 
     public static void createFile(String path, String content) throws IOException {
-        File newFile = new File(path);
-        newFile.getParentFile().mkdirs();
-        newFile.createNewFile();
-        FileWriter out = new FileWriter(newFile);
-        out.write(content);
-        out.close();
+        try {
+            File newFile = new File(path);
+            newFile.getParentFile().mkdirs();
+            newFile.createNewFile();
+            FileWriter out = new FileWriter(newFile);
+            out.write(content);
+            out.close();
+        } catch (IOException e) {
+            System.out.println("\n!!! Unable to  create a file with path:  " + path);
+        }
     }
 
     public static void createDir(String path) throws IOException {
         File newDir = new File(path);
-        newDir.getParentFile().mkdirs();
+        newDir.mkdirs();
         newDir.mkdir();
     }
 
@@ -58,17 +62,18 @@ public class IO {
     public TreeMap<String, String> buildMap(String filesList) {
         try {
             BufferedReader files = new BufferedReader(new FileReader((filesList)));
-            TreeMap<String, String> result = new TreeMap<String, String>();
-
+            TreeMap<String, String> result = new TreeMap<>((o1, o2) -> o2.toString().compareTo(o1.toString()));
             File root = new File(rootDir);
             int rootRank = getRank(root.getAbsolutePath());
             //System.out.println(rootRank);
-
             String tmp;
+
             while ((tmp = files.readLine()) != null) {
                 int isFile;
-                if (tmp.endsWith("\\") || tmp.endsWith("/")) isFile = 0;
-                else isFile = 1;
+                if (tmp.endsWith("\\") || tmp.endsWith("/") || isDir(tmp))
+                    isFile = 0;
+                else
+                    isFile = 1;
                 tmp = rootDir + sep + tmp;
                 File tempFile = new File(tmp);
                 String key = tempFile.getAbsolutePath();
@@ -89,6 +94,10 @@ public class IO {
         return null;
     }
 
+    public static boolean isDir(String path) {
+        Pattern dir = Pattern.compile(".*[\\\\/]([^.])+");
+        return path.matches(dir.pattern());
+    }
 //    public static boolean isCorrectPath(String path) {
 //        Pattern pathModel = Pattern.compile("([A-Z]:)?(\\" + sep + "[^\"<>:[*]/|\\\\]*)*");
 //        //Pattern pathModel = Pattern.compile("([A-Z]:)?(\\\\[^\"<>:[*]/|\\\\]*)*");
