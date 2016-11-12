@@ -1,3 +1,0 @@
-F:\Projects\JAVA\LAB_6\src\Root_dir\temp-dir\test\file.txt
-3
-Да-да-да. 

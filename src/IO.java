@@ -44,7 +44,7 @@ public class IO {
     public static void createDir(String path) throws IOException {
         File newDir = new File(path);
         newDir.mkdirs();
-        newDir.mkdir();
+        //newDir.mkdir();
     }
 
 
